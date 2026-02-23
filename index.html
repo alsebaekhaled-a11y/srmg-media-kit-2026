@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SRMG Media Solutions — 2026 Media Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== RESET & BASE ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; }
+
+/* ===== COLOR PALETTE (SRMG Brand) ===== */
+:root {
+  --primary: #6757EC;
+  --primary-light: #988EFA;
+  --primary-dim: rgba(103,87,236,0.15);
+  --primary-deep: #2A1F85;
+  --accent: #988EFA;
+  --accent2: #E97132;
+  --accent3: #E5E2FE;
+  --warm: #F1EDE2;
+  --dark: #181818;
+  --dark2: #131325;
+  --dark3: #191723;
+  --white: #ffffff;
+  --gray: #aaa;
+  --light-gray: #E8E8E8;
+}
+
+/* ===== SRMG LOGO ===== */
+.srmg-logo-fixed {
+  position: fixed; top: 28px; left: 36px; z-index: 999;
+  width: 56px; height: auto; opacity: 0.85;
+  filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+  pointer-events: none; transition: opacity 0.4s;
+}
+
+/* ===== SLIDE CONTAINER ===== */
+.deck { width: 100vw; height: 100vh; position: relative; }
+.slide {
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  opacity: 0; pointer-events: none; padding: 50px 80px; overflow: hidden;
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1), transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: scale(0.92) translateY(20px);
+}
+.slide.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: all; z-index: 10; }
+.slide.prev { opacity: 0; transform: scale(1.1) translateY(-30px); }
+.slide.next { opacity: 0; transform: scale(0.85) translateY(30px); }
+
+/* Slide transition variants */
+.slide.zoom-in.active { animation: zoomInSlide 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.slide.zoom-out.active { animation: zoomOutSlide 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.slide.slide-left.active { animation: slideFromLeft 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+.slide.slide-right.active { animation: slideFromRight 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+@keyframes zoomInSlide {
+  0% { opacity: 0; transform: scale(0.4) rotate(-3deg); filter: blur(12px); }
+  100% { opacity: 1; transform: scale(1) rotate(0); filter: blur(0); }
+}
+@keyframes zoomOutSlide {
+  0% { opacity: 0; transform: scale(1.6) rotate(2deg); filter: blur(12px); }
+  100% { opacity: 1; transform: scale(1) rotate(0); filter: blur(0); }
+}
+@keyframes slideFromLeft {
+  0% { opacity: 0; transform: translateX(-100%) scale(0.9); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+@keyframes slideFromRight {
+  0% { opacity: 0; transform: translateX(100%) scale(0.9); }
+  100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* ===== BACKGROUND IMAGE OVERLAY ===== */
+.slide-bg {
+  position: absolute; top: -20px; left: -20px; width: calc(100% + 40px); height: calc(100% + 40px);
+  background-size: cover; background-position: center; z-index: 0;
+  transition: transform 0.3s ease-out;
+}
+.slide-bg::after {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+}
+.slide-bg.darken::after { background: rgba(0,0,0,0.65); }
+.slide-bg.darken-heavy::after { background: rgba(0,0,0,0.8); }
+.slide-bg.gradient-overlay::after { background: linear-gradient(135deg, rgba(25,23,35,0.92) 0%, rgba(103,87,236,0.5) 100%); }
+.slide-bg.blue-overlay::after { background: linear-gradient(135deg, rgba(103,87,236,0.88) 0%, rgba(42,31,133,0.93) 100%); }
+.slide > *:not(.slide-bg):not(.particles-container) { position: relative; z-index: 2; }
+
+/* ===== FLOATING PARTICLES ===== */
+.particles-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden; }
+.particle {
+  position: absolute; border-radius: 50%; opacity: 0.15;
+  animation: floatParticle linear infinite;
+}
+@keyframes floatParticle {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.18; }
+  90% { opacity: 0.18; }
+  100% { transform: translateY(-100px) rotate(720deg); opacity: 0; }
+}
+
+/* ===== NAVIGATION ===== */
+.nav-bar {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 16px; z-index: 1000;
+  background: rgba(10,10,10,0.88); backdrop-filter: blur(20px);
+  padding: 12px 28px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+.nav-btn {
+  width: 46px; height: 46px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.12);
+  background: transparent; color: #fff; cursor: pointer; display: flex; align-items: center;
+  justify-content: center; transition: all 0.3s;
+}
+.nav-btn:hover { background: var(--primary); border-color: var(--primary); transform: scale(1.15); box-shadow: 0 0 24px rgba(103,87,236,0.5); }
+.slide-counter { font-size: 15px; color: var(--gray); font-weight: 600; min-width: 60px; text-align: center; }
+.progress-bar { position: fixed; top: 0; left: 0; height: 4px; z-index: 1000; transition: width 0.5s ease; background: linear-gradient(90deg, var(--primary-deep), var(--primary), var(--primary-light)); box-shadow: 0 0 12px rgba(103,87,236,0.6); }
+
+/* ===== COVER ===== */
+.slide-cover { text-align: center; }
+.cover-label { font-size: 18px; letter-spacing: 10px; text-transform: uppercase; color: var(--accent); margin-bottom: 32px; font-weight: 600; }
+.cover-title { font-size: 96px; font-weight: 900; line-height: 1.05; margin-bottom: 24px; }
+.cover-title span { background: linear-gradient(135deg, var(--primary), var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.cover-sub { font-size: 18px; color: rgba(255,255,255,0.5); letter-spacing: 8px; font-weight: 400; }
+.cover-line { width: 90px; height: 3px; background: linear-gradient(90deg, var(--accent), var(--primary)); margin: 32px auto; border-radius: 2px; animation: lineExpand 1.5s ease 0.8s both; }
+@keyframes lineExpand { 0%{width:0;opacity:0} 100%{width:90px;opacity:1} }
+.cover-glow {
+  position: absolute; width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(103,87,236,0.35), transparent 70%);
+  filter: blur(60px); animation: glowPulse 4s ease-in-out infinite;
+}
+@keyframes glowPulse { 0%,100%{transform:scale(1);opacity:0.5} 50%{transform:scale(1.4);opacity:0.8} }
+
+/* ===== SHIMMER TEXT ===== */
+.shimmer {
+  background: linear-gradient(90deg, #fff 0%, var(--accent) 50%, #fff 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  animation: shimmer 3s ease-in-out infinite;
+}
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+/* ===== TOC ===== */
+.slide-toc { background: var(--dark); }
+.toc-heading { font-size: 16px; letter-spacing: 8px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; font-weight: 600; }
+.toc-title { font-size: 52px; font-weight: 900; margin-bottom: 50px; }
+.toc-grid { display: flex; gap: 30px; width: 100%; max-width: 1200px; }
+.toc-card {
+  flex: 1; padding: 36px 28px; border-radius: 24px; cursor: pointer;
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+}
+.toc-card:hover { transform: translateY(-14px) scale(1.03); border-color: var(--primary); background: rgba(103,87,236,0.08); box-shadow: 0 24px 60px rgba(103,87,236,0.18); }
+.toc-card::before {
+  content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent)); transform: scaleX(0);
+  transition: transform 0.5s; transform-origin: left;
+}
+.toc-card:hover::before { transform: scaleX(1); }
+.toc-card-img { width: 100%; height: 150px; border-radius: 16px; margin-bottom: 20px; object-fit: cover; opacity: 0.65; transition: all 0.5s; }
+.toc-card:hover .toc-card-img { opacity: 1; transform: scale(1.05); }
+.toc-num { font-size: 52px; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.toc-label { font-size: 24px; font-weight: 700; margin-top: 12px; }
+.toc-desc { font-size: 15px; color: var(--gray); margin-top: 10px; line-height: 1.6; }
+.toc-arrow { margin-top: 20px; color: var(--accent); font-size: 22px; transition: transform 0.3s; display: inline-block; }
+.toc-card:hover .toc-arrow { transform: translateX(10px); }
+
+/* ===== SECTION HEADER ===== */
+.slide-section { text-align: center; position: relative; }
+.slide-section .section-num { font-size: 260px; font-weight: 900; color: rgba(255,255,255,0.03); position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+.section-title { font-size: 88px; font-weight: 900; line-height: 1.05; letter-spacing: -2px; }
+.section-sub { font-size: 18px; color: rgba(255,255,255,0.4); margin-top: 20px; letter-spacing: 6px; text-transform: uppercase; }
+.section-icon { width: 72px; height: 72px; margin-bottom: 28px; background: rgba(255,255,255,0.08); border-radius: 22px; display: flex; align-items: center; justify-content: center; animation: iconBounce 2s ease-in-out infinite; }
+.section-icon svg { width: 36px; height: 36px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+@keyframes iconBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+/* ===== STATS GRID ===== */
+.stats-headline { font-size: 34px; font-weight: 700; text-align: center; max-width: 950px; line-height: 1.4; margin-bottom: 50px; }
+.stats-headline em { color: var(--accent); font-style: normal; }
+.stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; width: 100%; max-width: 1200px; }
+.stat-card {
+  text-align: center; padding: 36px 18px; border-radius: 22px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(10px);
+  position: relative; overflow: hidden;
+}
+.stat-card::before {
+  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: conic-gradient(transparent, rgba(103,87,236,0.12), transparent, rgba(152,142,250,0.12), transparent);
+  animation: rotateBorder 6s linear infinite; opacity: 0; transition: opacity 0.4s;
+}
+.stat-card:hover::before { opacity: 1; }
+@keyframes rotateBorder { 100% { transform: rotate(360deg); } }
+.stat-card:hover { transform: translateY(-10px) scale(1.06); border-color: var(--primary); box-shadow: 0 24px 48px rgba(103,87,236,0.18); }
+.stat-icon { width: 52px; height: 52px; margin: 0 auto 16px; background: var(--primary-dim); border-radius: 16px; display: flex; align-items: center; justify-content: center; transition: all 0.4s; }
+.stat-card:hover .stat-icon { background: var(--primary); transform: scale(1.1) rotate(-5deg); }
+.stat-icon svg { width: 26px; height: 26px; stroke: var(--accent); fill: none; stroke-width: 2; transition: stroke 0.4s; }
+.stat-card:hover .stat-icon svg { stroke: #fff; }
+.stat-num { font-size: 44px; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.stat-label { font-size: 13px; color: var(--gray); margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; line-height: 1.5; }
+@keyframes countPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.1)} }
+.stat-card:hover .stat-num { animation: countPulse 0.6s ease; }
+
+/* ===== CAPABILITIES ===== */
+.cap-title { font-size: 40px; font-weight: 800; margin-bottom: 16px; text-align: center; }
+.cap-sub { font-size: 17px; color: var(--gray); margin-bottom: 50px; text-align: center; }
+.cap-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 16px; width: 100%; max-width: 1200px; }
+.cap-card {
+  text-align: center; padding: 32px 12px; border-radius: 22px;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+  position: relative; overflow: hidden;
+}
+.cap-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transform: scaleX(0); transition: transform 0.4s; transform-origin: center;
+}
+.cap-card:hover::after { transform: scaleX(1); }
+.cap-card:hover { transform: translateY(-10px) scale(1.08); border-color: var(--accent); box-shadow: 0 20px 44px rgba(152,142,250,0.14); }
+.cap-icon-wrap { width: 60px; height: 60px; margin: 0 auto 18px; background: linear-gradient(135deg, var(--primary-dim), rgba(152,142,250,0.1)); border-radius: 18px; display: flex; align-items: center; justify-content: center; transition: all 0.4s; }
+.cap-card:hover .cap-icon-wrap { background: linear-gradient(135deg, var(--primary), var(--accent)); transform: scale(1.15) rotate(8deg); }
+.cap-icon-wrap svg { width: 30px; height: 30px; stroke: var(--accent); fill: none; stroke-width: 1.5; transition: stroke 0.4s; }
+.cap-card:hover .cap-icon-wrap svg { stroke: #fff; }
+.cap-name { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.5; }
+
+/* ===== PROOF POINTS ===== */
+.proof-title { font-size: 42px; font-weight: 800; margin-bottom: 44px; text-align: center; }
+.proof-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; width: 100%; max-width: 1100px; }
+.proof-card {
+  padding: 36px; border-radius: 22px; border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04); backdrop-filter: blur(10px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden;
+}
+.proof-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: 22px;
+  background: linear-gradient(135deg, rgba(103,87,236,0.1) 0%, transparent 50%);
+  opacity: 0; transition: opacity 0.4s;
+}
+.proof-card:hover::before { opacity: 1; }
+.proof-card:hover { border-color: var(--primary); transform: translateY(-8px) scale(1.02); box-shadow: 0 24px 60px rgba(103,87,236,0.12); }
+.proof-card-top { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.proof-card-icon { width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.4s; }
+.proof-card:hover .proof-card-icon { transform: scale(1.1) rotate(-5deg); }
+.proof-card-icon svg { width: 26px; height: 26px; stroke: #fff; fill: none; stroke-width: 1.5; }
+.proof-card-icon.blue { background: var(--primary); }
+.proof-card-icon.green { background: var(--accent); }
+.proof-card-icon.orange { background: var(--accent2); }
+.proof-card-icon.purple { background: var(--primary-deep); }
+.proof-badge { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+.proof-stat { font-size: 56px; font-weight: 900; margin-bottom: 10px; background: linear-gradient(135deg, #fff, rgba(255,255,255,0.7)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.proof-desc { font-size: 15px; color: var(--gray); line-height: 1.7; }
+
+/* ===== OFFERINGS ===== */
+.off-title { font-size: 42px; font-weight: 800; margin-bottom: 12px; text-align: center; }
+.off-sub { font-size: 17px; color: var(--gray); margin-bottom: 50px; text-align: center; max-width: 750px; }
+.off-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; width: 100%; max-width: 1200px; }
+.off-card {
+  padding: 36px 22px; border-radius: 24px; text-align: center;
+  border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.04);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; position: relative; overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+.off-card:hover { transform: translateY(-14px) scale(1.04); border-color: var(--primary); box-shadow: 0 28px 64px rgba(103,87,236,0.14); }
+.off-card-icon { width: 72px; height: 72px; margin: 0 auto 22px; background: linear-gradient(135deg, var(--primary-dim), rgba(152,142,250,0.08)); border-radius: 22px; display: flex; align-items: center; justify-content: center; transition: all 0.5s; }
+.off-card:hover .off-card-icon { background: linear-gradient(135deg, var(--primary), var(--accent)); transform: scale(1.15) rotate(-8deg); }
+.off-card-icon svg { width: 36px; height: 36px; stroke: var(--accent); fill: none; stroke-width: 1.5; transition: stroke 0.4s; }
+.off-card:hover .off-card-icon svg { stroke: #fff; }
+.off-card .off-name { font-size: 20px; font-weight: 700; margin-bottom: 14px; }
+.off-card .off-items { font-size: 14px; color: var(--gray); line-height: 2; }
+.off-num { position: absolute; top: 14px; right: 18px; font-size: 56px; font-weight: 900; color: rgba(255,255,255,0.03); }
+
+/* ===== BRANDED CONTENT ===== */
+.branded-flex { display: flex; gap: 60px; align-items: center; width: 100%; max-width: 1200px; }
+.branded-left { flex: 1; }
+.branded-right { flex: 1; }
+.branded-tag { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 30px; background: rgba(103,87,236,0.3); border: 1px solid rgba(103,87,236,0.5); font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 26px; backdrop-filter: blur(10px); }
+.branded-tag svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; }
+.branded-title { font-size: 44px; font-weight: 900; line-height: 1.15; margin-bottom: 18px; }
+.branded-desc { font-size: 16px; color: var(--gray); line-height: 1.7; margin-bottom: 32px; }
+.branded-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.b-stat { padding: 22px; border-radius: 18px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(10px); transition: all 0.4s; }
+.b-stat:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(103,87,236,0.1); }
+.b-stat-num { font-size: 32px; font-weight: 800; color: var(--accent); }
+.b-stat-label { font-size: 12px; color: var(--gray); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+.branded-right h3 { font-size: 18px; margin-bottom: 16px; color: var(--accent); font-weight: 700; }
+.branded-formats { display: flex; flex-wrap: wrap; gap: 10px; }
+.format-pill { padding: 10px 20px; border-radius: 22px; font-size: 14px; font-weight: 600; background: rgba(103,87,236,0.12); border: 1px solid rgba(103,87,236,0.25); transition: all 0.3s; }
+.format-pill:hover { background: var(--primary); border-color: var(--primary); transform: scale(1.08); box-shadow: 0 4px 16px rgba(103,87,236,0.3); }
+.case-studies { margin-top: 28px; }
+.case-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; font-size: 15px; color: var(--gray); border-bottom: 1px solid rgba(255,255,255,0.04); transition: all 0.3s; }
+.case-item:hover { color: #fff; padding-left: 8px; }
+.case-item svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 2; flex-shrink: 0; transition: transform 0.3s; }
+.case-item:hover svg { transform: translateX(4px); }
+
+/* ===== BRANDS NETWORK ===== */
+.slide-brands { background: var(--dark); }
+.brands-title { font-size: 42px; font-weight: 800; margin-bottom: 10px; text-align: center; }
+.brands-sub { font-size: 16px; color: var(--gray); margin-bottom: 36px; text-align: center; }
+.brands-tabs { display: flex; gap: 10px; margin-bottom: 30px; }
+.brand-tab {
+  padding: 12px 28px; border-radius: 30px; font-size: 15px; font-weight: 600;
+  cursor: pointer; border: 1px solid rgba(255,255,255,0.1); background: transparent;
+  color: var(--gray); transition: all 0.4s; display: flex; align-items: center; gap: 8px;
+}
+.brand-tab svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+.brand-tab.active, .brand-tab:hover { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 6px 24px rgba(103,87,236,0.35); transform: translateY(-2px); }
+.brands-content { width: 100%; max-width: 1200px; }
+.brand-panel { display: none; }
+.brand-panel.active { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; animation: panelFadeIn 0.6s ease; }
+@keyframes panelFadeIn { from { opacity: 0; transform: translateY(15px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.brand-card {
+  padding: 26px; border-radius: 20px; background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative; overflow: hidden;
+}
+.brand-card:hover { border-color: var(--accent); transform: translateY(-8px); box-shadow: 0 20px 48px rgba(152,142,250,0.1); }
+.brand-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.brand-card-avatar { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; flex-shrink: 0; transition: transform 0.4s; }
+.brand-card:hover .brand-card-avatar { transform: scale(1.1) rotate(-5deg); }
+.brand-card-name { font-size: 18px; font-weight: 700; }
+.brand-card-desc { font-size: 14px; color: var(--gray); line-height: 1.6; margin-bottom: 16px; }
+.brand-card-stats { display: flex; gap: 16px; flex-wrap: wrap; }
+.brand-mini-stat { font-size: 12px; }
+.brand-mini-stat strong { color: var(--accent); font-size: 18px; display: block; font-weight: 800; }
+
+/* ===== EVENTS ===== */
+.events-title { font-size: 42px; font-weight: 800; margin-bottom: 44px; text-align: center; }
+.events-flex { display: flex; gap: 30px; width: 100%; max-width: 1200px; }
+.event-card {
+  flex: 1; padding: 40px; border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.04);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(10px); overflow: hidden; position: relative;
+}
+.event-card::before {
+  content: ''; position: absolute; inset: 0; border-radius: 24px;
+  background: linear-gradient(135deg, rgba(103,87,236,0.08) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+}
+.event-card:hover::before { opacity: 1; }
+.event-card:hover { transform: translateY(-10px) scale(1.02); border-color: var(--accent); box-shadow: 0 28px 64px rgba(152,142,250,0.12); }
+.event-card-icon { width: 60px; height: 60px; border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 22px; transition: transform 0.4s; }
+.event-card:hover .event-card-icon { transform: scale(1.1) rotate(-5deg); }
+.event-card-icon svg { width: 30px; height: 30px; stroke: #fff; fill: none; stroke-width: 1.5; }
+.event-card-icon.pink { background: linear-gradient(135deg, #e91e63, #ff6090); }
+.event-card-icon.gold { background: linear-gradient(135deg, #ff9800, #ffc947); }
+.event-name { font-size: 26px; font-weight: 800; margin-bottom: 12px; }
+.event-desc { font-size: 15px; color: var(--gray); line-height: 1.7; margin-bottom: 28px; }
+.event-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ev-stat { text-align: center; padding: 16px; border-radius: 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s; }
+.ev-stat:hover { border-color: var(--accent); transform: scale(1.06); }
+.ev-stat strong { font-size: 26px; color: var(--accent); display: block; font-weight: 800; }
+.ev-stat span { font-size: 11px; color: var(--gray); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ===== CLIENTS ===== */
+.clients-top { display: flex; gap: 30px; align-items: center; margin-bottom: 44px; width: 100%; max-width: 1100px; }
+.client-big-stat { text-align: center; padding: 34px 44px; background: rgba(255,255,255,0.04); border-radius: 22px; border: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(10px); transition: all 0.4s; }
+.client-big-stat:hover { border-color: var(--accent); transform: scale(1.06); box-shadow: 0 16px 40px rgba(103,87,236,0.12); }
+.client-big-num { font-size: 64px; font-weight: 900; background: linear-gradient(135deg, var(--primary), var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.client-big-label { font-size: 14px; color: var(--gray); margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.clients-text { flex: 1; }
+.clients-text h2 { font-size: 34px; font-weight: 800; margin-bottom: 14px; }
+.clients-text p { font-size: 16px; color: var(--gray); line-height: 1.7; }
+.sectors-grid { display: flex; flex-wrap: wrap; gap: 12px; max-width: 1100px; }
+.sector-pill { padding: 12px 26px; border-radius: 28px; font-size: 15px; font-weight: 600; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); transition: all 0.4s; cursor: default; backdrop-filter: blur(10px); }
+.sector-pill:hover { background: var(--primary); border-color: var(--primary); transform: scale(1.1); box-shadow: 0 6px 24px rgba(103,87,236,0.35); }
+
+/* ===== CONTACT ===== */
+.slide-contact { text-align: center; }
+.contact-icon { width: 80px; height: 80px; margin: 0 auto 28px; background: rgba(255,255,255,0.08); border-radius: 26px; display: flex; align-items: center; justify-content: center; animation: iconBounce 2s ease-in-out infinite; }
+.contact-icon svg { width: 40px; height: 40px; stroke: var(--accent); fill: none; stroke-width: 1.5; }
+.contact-title { font-size: 60px; font-weight: 900; margin-bottom: 14px; }
+.contact-sub { font-size: 18px; color: rgba(255,255,255,0.5); margin-bottom: 50px; max-width: 600px; }
+.contact-grid { display: flex; gap: 30px; margin-bottom: 40px; }
+.contact-card { padding: 36px 40px; border-radius: 22px; background: rgba(255,255,255,0.06); backdrop-filter: blur(20px); min-width: 300px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.4s; text-align: left; }
+.contact-card:hover { border-color: var(--accent); transform: translateY(-6px); box-shadow: 0 16px 40px rgba(103,87,236,0.1); }
+.contact-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: var(--accent); display: flex; align-items: center; gap: 10px; text-transform: uppercase; letter-spacing: 1px; }
+.contact-card h3 svg { width: 20px; height: 20px; stroke: var(--accent); fill: none; stroke-width: 2; }
+.contact-card p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 2; }
+.contact-links { display: flex; gap: 16px; margin-top: 32px; }
+.contact-link { padding: 16px 36px; border-radius: 30px; font-size: 16px; font-weight: 700; text-decoration: none; transition: all 0.4s; display: inline-flex; align-items: center; gap: 10px; }
+.contact-link svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; }
+.contact-link.primary { background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; box-shadow: 0 6px 24px rgba(103,87,236,0.4); }
+.contact-link.primary:hover { transform: translateY(-4px) scale(1.06); box-shadow: 0 10px 36px rgba(152,142,250,0.5); }
+.contact-link.secondary { border: 1px solid rgba(255,255,255,0.3); color: #fff; }
+.contact-link.secondary:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); }
+
+/* ===== ANIMATIONS ===== */
+.fade-up { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.slide.active .fade-up { opacity: 1; transform: translateY(0); }
+.slide.active .fade-up:nth-child(1) { transition-delay: 0.1s; }
+.slide.active .fade-up:nth-child(2) { transition-delay: 0.25s; }
+.slide.active .fade-up:nth-child(3) { transition-delay: 0.4s; }
+.slide.active .fade-up:nth-child(4) { transition-delay: 0.55s; }
+.slide.active .fade-up:nth-child(5) { transition-delay: 0.7s; }
+
+.fade-left { opacity: 0; transform: translateX(-80px); transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.slide.active .fade-left { opacity: 1; transform: translateX(0); }
+
+.fade-right { opacity: 0; transform: translateX(80px); transition: all 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.slide.active .fade-right { opacity: 1; transform: translateX(0); transition-delay: 0.2s; }
+
+.scale-in { opacity: 0; transform: scale(0.7); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+.slide.active .scale-in { opacity: 1; transform: scale(1); }
+
+.stagger > * { opacity: 0; transform: translateY(30px); transition: all 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+.slide.active .stagger > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.05s; }
+.slide.active .stagger > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
+.slide.active .stagger > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.25s; }
+.slide.active .stagger > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.35s; }
+.slide.active .stagger > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.45s; }
+.slide.active .stagger > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.55s; }
+.slide.active .stagger > *:nth-child(7) { opacity: 1; transform: translateY(0); transition-delay: 0.65s; }
+
+/* Ripple click effect */
+.ripple { position: relative; overflow: hidden; }
+.ripple::after {
+  content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 60%);
+  transform: scale(0); opacity: 0; transition: all 0.6s;
+}
+.ripple:active::after { transform: scale(2.5); opacity: 1; transition: 0s; }
+
+/* ===== MODAL ===== */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(16px);
+  z-index: 2000; display: none; justify-content: center; align-items: center;
+}
+.modal-overlay.open { display: flex; }
+.modal-content {
+  background: linear-gradient(135deg, var(--dark3), var(--dark)); border-radius: 28px; padding: 52px; max-width: 750px;
+  width: 90%; border: 1px solid rgba(255,255,255,0.1); position: relative;
+  animation: modalIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+}
+@keyframes modalIn { from { opacity: 0; transform: scale(0.8) translateY(40px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+.modal-close {
+  position: absolute; top: 18px; right: 22px; width: 44px; height: 44px;
+  border-radius: 50%; border: none; background: rgba(255,255,255,0.08);
+  color: #fff; font-size: 22px; cursor: pointer; display: flex;
+  align-items: center; justify-content: center; transition: all 0.3s;
+}
+.modal-close:hover { background: var(--primary); transform: rotate(90deg) scale(1.1); }
+.modal-content h2 { font-size: 32px; font-weight: 800; margin-bottom: 24px; }
+.modal-content p { font-size: 16px; color: var(--gray); line-height: 1.8; margin-bottom: 16px; }
+.modal-content li { font-size: 15px; }
+
+/* ===== KEYBOARD HINT ===== */
+.key-hint {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+  font-size: 12px; color: rgba(255,255,255,0.2); z-index: 999; letter-spacing: 0.5px;
+}
+
+/* ===== BG SHAPES ===== */
+.bg-shapes { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; overflow: hidden; }
+.bg-shape { position: absolute; border-radius: 50%; opacity: 0.06; }
+.bg-shape.s1 { width: 450px; height: 450px; background: var(--primary); top: -120px; right: -120px; animation: shapeFloat 12s ease-in-out infinite; }
+.bg-shape.s2 { width: 350px; height: 350px; background: var(--accent); bottom: -100px; left: -100px; animation: shapeFloat 10s ease-in-out infinite reverse; }
+.bg-shape.s3 { width: 250px; height: 250px; background: var(--accent3); top: 40%; left: 20%; animation: shapeFloat 8s ease-in-out infinite 2s; }
+@keyframes shapeFloat { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(30px,-30px) scale(1.1)} 66%{transform:translate(-20px,20px) scale(0.95)} }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<img src="assets/web/srmg_logo.svg" class="srmg-logo-fixed" alt="SRMG" id="globalLogo" onerror="this.src='assets/web/srmg_logo.png'">
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide slide-cover zoom-in" data-slide="0">
+    <div class="slide-bg gradient-overlay" style="background-image:url('assets/web/hero_storytelling.jpg')"></div>
+    <div class="particles-container" id="coverParticles"></div>
+    <div class="cover-glow" style="top:15%;left:60%"></div>
+    <div class="cover-glow" style="bottom:10%;left:15%;animation-delay:2s"></div>
+    <div class="cover-label fade-up">SRMG Media Solutions</div>
+    <h1 class="cover-title fade-up">20<span>26</span> Media Kit</h1>
+    <div class="cover-line fade-up"></div>
+    <p class="cover-sub fade-up">SRMGMS.COM</p>
+  </div>
+
+  <!-- SLIDE 2: TOC -->
+  <div class="slide slide-toc slide-right" data-slide="1">
+    <div class="bg-shapes"><div class="bg-shape s1"></div><div class="bg-shape s2"></div></div>
+    <div class="toc-heading fade-up">Contents</div>
+    <div class="toc-title fade-up">What's Inside</div>
+    <div class="toc-grid stagger">
+      <div class="toc-card ripple" onclick="goToSlide(2)">
+        <img src="assets/web/hero_whoweare.jpg" alt="" class="toc-card-img">
+        <div class="toc-num">01</div>
+        <div class="toc-label">Who We Are</div>
+        <div class="toc-desc">Powering MENA's leading media brands with full-funnel, insight-driven media solutions</div>
+        <div class="toc-arrow">&#8594;</div>
+      </div>
+      <div class="toc-card ripple" onclick="goToSlide(8)">
+        <img src="assets/web/hero_digital.jpg" alt="" class="toc-card-img">
+        <div class="toc-num">02</div>
+        <div class="toc-label">Our Offerings</div>
+        <div class="toc-desc">Branded content, advertising formats, events, and talent partnerships</div>
+        <div class="toc-arrow">&#8594;</div>
+      </div>
+      <div class="toc-card ripple" onclick="goToSlide(14)">
+        <img src="assets/web/hero_events.jpg" alt="" class="toc-card-img">
+        <div class="toc-num">03</div>
+        <div class="toc-label">Our Brands</div>
+        <div class="toc-desc">25+ media brands across news, sports, lifestyle, and youth</div>
+        <div class="toc-arrow">&#8594;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: WHO WE ARE SECTION -->
+  <div class="slide slide-section zoom-out" data-slide="2">
+    <div class="slide-bg blue-overlay" style="background-image:url('assets/web/hero_whoweare.jpg')"></div>
+    <div class="particles-container" id="s3Particles"></div>
+    <div class="section-num">01</div>
+    <div class="section-icon fade-up"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+    <h1 class="section-title fade-up">WHO<br>WE ARE</h1>
+    <p class="section-sub fade-up">SRMGMS.COM</p>
+  </div>
+
+  <!-- SLIDE 4: ABOUT -->
+  <div class="slide slide-left" data-slide="3" style="background:var(--dark)">
+    <div class="bg-shapes"><div class="bg-shape s1"></div><div class="bg-shape s2"></div><div class="bg-shape s3"></div></div>
+    <div style="display:flex;gap:60px;align-items:center;width:100%;max-width:1200px">
+      <div class="fade-left" style="flex:1">
+        <div style="font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-bottom:18px;font-weight:600">About SRMG Media Solutions</div>
+        <h2 style="font-size:42px;font-weight:900;line-height:1.2;margin-bottom:24px">Powering MENA's Leading Media Brands</h2>
+        <p style="font-size:17px;color:var(--gray);line-height:1.8;margin-bottom:24px">SRMG Media Solutions powers the MENA region's leading media brands, offering full-funnel, insight-driven media solutions across all platforms.</p>
+        <p style="font-size:17px;color:var(--gray);line-height:1.8">We connect brands with premium audiences through bold storytelling, smart strategy, and impactful experiences that drive real results.</p>
+      </div>
+      <div class="fade-right" style="flex:1">
+        <img src="assets/web/hero_whoweare.jpg" alt="" style="width:100%;border-radius:24px;opacity:0.85;box-shadow:0 24px 64px rgba(0,0,0,0.5)">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: KEY STATS -->
+  <div class="slide zoom-in" data-slide="4">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/hero_digital.jpg')"></div>
+    <h2 class="stats-headline fade-up">Part of the largest integrated media group, SMS provides <em>unmatched reach</em> across an unparalleled portfolio</h2>
+    <div class="stats-grid stagger">
+      <div class="stat-card ripple">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="stat-num" data-count="270">270M+</div>
+        <div class="stat-label">Audience<br>Reach</div>
+      </div>
+      <div class="stat-card ripple">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+        <div class="stat-num" data-count="240">240M+</div>
+        <div class="stat-label">Social Media<br>Followers</div>
+      </div>
+      <div class="stat-card ripple">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="stat-num" data-count="25">25+</div>
+        <div class="stat-label">Media<br>Brands</div>
+      </div>
+      <div class="stat-card ripple">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg></div>
+        <div class="stat-num" data-count="30">30Bn+</div>
+        <div class="stat-label">Video<br>Views</div>
+      </div>
+      <div class="stat-card ripple">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="stat-num" data-count="50">50Bn+</div>
+        <div class="stat-label">Impressions</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: 360 CAPABILITIES -->
+  <div class="slide slide-right" data-slide="5">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/hero_storytelling.jpg')"></div>
+    <h2 class="cap-title fade-up">We offer bespoke 360 media solutions</h2>
+    <p class="cap-sub fade-up">From content creation to amplification across all formats</p>
+    <div class="cap-grid stagger">
+      <div class="cap-card ripple" onclick="openModal('content')">
+        <div class="cap-icon-wrap"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+        <div class="cap-name">Content &<br>Storytelling</div>
+      </div>
+      <div class="cap-card ripple" onclick="openModal('digital')">
+        <div class="cap-icon-wrap"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <div class="cap-name">Digital &<br>Social</div>
+      </div>
+      <div class="cap-card ripple" onclick="openModal('vod')">
+        <div class="cap-icon-wrap"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+        <div class="cap-name">AVOD /<br>SVOD</div>
+      </div>
+      <div class="cap-card ripple" onclick="openModal('audio')">
+        <div class="cap-icon-wrap"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg></div>
+        <div class="cap-name">Audio &<br>Podcasts</div>
+      </div>
+      <div class="cap-card ripple">
+        <div class="cap-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="cap-name">Digital<br>App</div>
+      </div>
+      <div class="cap-card ripple">
+        <div class="cap-icon-wrap"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg></div>
+        <div class="cap-name">TV</div>
+      </div>
+      <div class="cap-card ripple" onclick="openModal('events')">
+        <div class="cap-icon-wrap"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="cap-name">Experiences</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 7: CONTENT & STORYTELLING -->
+  <div class="slide slide-left" data-slide="6">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/hero_storytelling.jpg')"></div>
+    <div style="display:flex;gap:50px;align-items:flex-start;width:100%;max-width:1200px">
+      <div class="fade-left" style="flex:1.2">
+        <div style="font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:600">Content & Storytelling</div>
+        <h2 style="font-size:38px;font-weight:900;line-height:1.2;margin-bottom:18px">Content Is Where the Connection Happens</h2>
+        <p style="font-size:16px;color:var(--gray);line-height:1.8;margin-bottom:16px">Top-tier storytelling and branded content, powered by our leading editors and contributors. A curated network of high-end, widely recognized contributors renowned across multiple fields.</p>
+        <p style="font-size:16px;color:var(--gray);line-height:1.8;margin-bottom:28px">Our in-house production arm, <strong style="color:#fff">SRMG Studios</strong>, brings ideas to life with quality and creativity — adapting and optimizing content for every format.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="padding:14px 22px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);text-align:center;flex:1;min-width:120px;transition:all 0.4s" class="ripple"><div style="font-size:28px;font-weight:800;color:var(--accent)">40+</div><div style="font-size:11px;color:var(--gray);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px">Original IPs</div></div>
+          <div style="padding:14px 22px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);text-align:center;flex:1;min-width:120px;transition:all 0.4s" class="ripple"><div style="font-size:28px;font-weight:800;color:var(--accent)">300+</div><div style="font-size:11px;color:var(--gray);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px">Featured Guests</div></div>
+          <div style="padding:14px 22px;border-radius:16px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);text-align:center;flex:1;min-width:120px;transition:all 0.4s" class="ripple"><div style="font-size:28px;font-weight:800;color:var(--accent)">7</div><div style="font-size:11px;color:var(--gray);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px">Languages</div></div>
+        </div>
+      </div>
+      <div class="fade-right" style="flex:0.8">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);margin-bottom:16px;text-transform:uppercase;letter-spacing:2px">Featured Contributors</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s"><div style="font-size:14px;font-weight:700">Omar Al-Jeraisy</div><div style="font-size:11px;color:var(--gray)">Business & Current Affairs</div></div>
+          <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s"><div style="font-size:14px;font-weight:700">Abdullah Alsabe</div><div style="font-size:11px;color:var(--gray)">Technology</div></div>
+          <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s"><div style="font-size:14px;font-weight:700">Zeina Yazigi</div><div style="font-size:11px;color:var(--gray)">General News</div></div>
+          <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s"><div style="font-size:14px;font-weight:700">Moataz El-Demerdash</div><div style="font-size:11px;color:var(--gray)">Current Affairs</div></div>
+          <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s"><div style="font-size:14px;font-weight:700">Hadil Elayan</div><div style="font-size:11px;color:var(--gray)">Business</div></div>
+          <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s"><div style="font-size:14px;font-weight:700">Maya Hojeij</div><div style="font-size:11px;color:var(--gray)">Current Affairs</div></div>
+          <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s"><div style="font-size:14px;font-weight:700">Mashoor Aldubyan</div><div style="font-size:11px;color:var(--gray)">Business</div></div>
+          <div style="padding:14px 16px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);transition:all 0.3s"><div style="font-size:14px;font-weight:700">Najla Amassad</div><div style="font-size:11px;color:var(--gray)">Lifestyle</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 8: DIGITAL & SOCIAL MEDIA -->
+  <div class="slide zoom-out" data-slide="7">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/hero_digital.jpg')"></div>
+    <div style="text-align:center;margin-bottom:40px" class="fade-up">
+      <div style="font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:600">Digital & Social Media</div>
+      <h2 style="font-size:38px;font-weight:900;line-height:1.2">Designed for a World Where Mobile Is the Primary Screen</h2>
+      <p style="font-size:16px;color:var(--gray);margin-top:12px">We're a digital-first network. 4hrs+ daily phone time in MENA.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;width:100%;max-width:1100px" class="stagger">
+      <div style="padding:32px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;backdrop-filter:blur(10px)" class="ripple">
+        <div style="font-size:48px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent">#1</div>
+        <div style="font-size:15px;font-weight:700;margin-top:8px">Business News Source</div>
+        <div style="font-size:13px;color:var(--gray);margin-top:8px;line-height:1.6">2.6M social followers in business vertical. Leading by far across all competitors.</div>
+      </div>
+      <div style="padding:32px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;backdrop-filter:blur(10px)" class="ripple">
+        <div style="font-size:48px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent">#1</div>
+        <div style="font-size:15px;font-weight:700;margin-top:8px">General News Source</div>
+        <div style="font-size:13px;color:var(--gray);margin-top:8px;line-height:1.6">~75% avg engagement rate (vs ~55% industry avg). Go-to for MENA decision-makers.</div>
+      </div>
+      <div style="padding:32px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;backdrop-filter:blur(10px)" class="ripple">
+        <div style="font-size:48px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent">#1</div>
+        <div style="font-size:15px;font-weight:700;margin-top:8px">Women's Lifestyle</div>
+        <div style="font-size:13px;color:var(--gray);margin-top:8px;line-height:1.6">100M+ video views in 2025 for Sayidaty & Hia. Undisputed leader.</div>
+      </div>
+      <div style="padding:32px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;backdrop-filter:blur(10px)" class="ripple">
+        <div style="font-size:48px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent">6</div>
+        <div style="font-size:15px;font-weight:700;margin-top:8px">AVOD Channels</div>
+        <div style="font-size:13px;color:var(--gray);margin-top:8px;line-height:1.6">24/7 coverage. #1 Arabic documentary streaming platform.</div>
+      </div>
+      <div style="padding:32px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;backdrop-filter:blur(10px)" class="ripple">
+        <div style="font-size:48px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent">#1</div>
+        <div style="font-size:15px;font-weight:700;margin-top:8px">Arabic Podcast</div>
+        <div style="font-size:13px;color:var(--gray);margin-top:8px;line-height:1.6">143M+ views on #1 episode globally (Thmanyah). 40+ original IPs.</div>
+      </div>
+      <div style="padding:32px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;backdrop-filter:blur(10px)" class="ripple">
+        <div style="font-size:48px;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--primary-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent">4hrs+</div>
+        <div style="font-size:15px;font-weight:700;margin-top:8px">Daily Phone Time</div>
+        <div style="font-size:13px;color:var(--gray);margin-top:8px;line-height:1.6">MENA is mobile-first. Our platforms are built for where attention lives.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: OUR OFFERINGS SECTION -->
+  <div class="slide slide-section zoom-in" data-slide="8">
+    <div class="slide-bg blue-overlay" style="background-image:url('assets/web/hero_storytelling.jpg')"></div>
+    <div class="particles-container" id="s7Particles"></div>
+    <div class="section-num">02</div>
+    <div class="section-icon fade-up"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+    <h1 class="section-title fade-up">OUR<br>OFFERINGS</h1>
+    <p class="section-sub fade-up">SRMGMS.COM</p>
+  </div>
+
+  <!-- SLIDE 8: OFFERINGS OVERVIEW -->
+  <div class="slide zoom-out" data-slide="9">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/case_loreal_1.jpg')"></div>
+    <h2 class="off-title fade-up">A 360° Approach to Engage Diverse Audiences</h2>
+    <p class="off-sub fade-up">Through impactful storytelling across platforms</p>
+    <div class="off-grid stagger">
+      <div class="off-card ripple" onclick="openModal('branded')">
+        <div class="off-num">1</div>
+        <div class="off-card-icon"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+        <div class="off-name">Branded Content</div>
+        <div class="off-items">Native Storytelling<br>Sponsored Series<br>Editorial Integrations</div>
+      </div>
+      <div class="off-card ripple" onclick="openModal('adformats')">
+        <div class="off-num">2</div>
+        <div class="off-card-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div class="off-name">Advertising Formats</div>
+        <div class="off-items">Display & Rich Media<br>Video Ads<br>Social Media Ads<br>OOH</div>
+      </div>
+      <div class="off-card ripple" onclick="openModal('eventsmodal')">
+        <div class="off-num">3</div>
+        <div class="off-card-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div class="off-name">Events & Experiences</div>
+        <div class="off-items">Event Sponsorships<br>Media Coverage<br>Event Activations</div>
+      </div>
+      <div class="off-card ripple" onclick="openModal('talent')">
+        <div class="off-num">4</div>
+        <div class="off-card-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div class="off-name">Talents & Influencers</div>
+        <div class="off-items">Talent Network<br>Creator & Influence<br>Partnerships</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 9: BRANDED CONTENT -->
+  <div class="slide slide-left" data-slide="10">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/case_loreal_2.jpg')"></div>
+    <div class="branded-flex">
+      <div class="branded-left fade-left">
+        <div class="branded-tag"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg> Branded Content</div>
+        <h2 class="branded-title">Native Storytelling That Drives Real Results</h2>
+        <p class="branded-desc">Narrative-led branded content crafted natively for SRMG platforms. Designed to inform, inspire, and resonate while remaining clearly brand-driven.</p>
+        <div class="branded-stats">
+          <div class="b-stat"><div class="b-stat-num">0.97%</div><div class="b-stat-label">CTR (vs 0.20% industry avg)</div></div>
+          <div class="b-stat"><div class="b-stat-num">60.59%</div><div class="b-stat-label">Completion Rate</div></div>
+          <div class="b-stat"><div class="b-stat-num">63.78%</div><div class="b-stat-label">Viewability</div></div>
+          <div class="b-stat"><div class="b-stat-num">1.98M</div><div class="b-stat-label">Social Reach</div></div>
+        </div>
+      </div>
+      <div class="branded-right fade-right">
+        <h3>Key Formats</h3>
+        <div class="branded-formats">
+          <div class="format-pill">Long-form Articles</div>
+          <div class="format-pill">Documentary Video</div>
+          <div class="format-pill">Multimedia Stories</div>
+          <div class="format-pill">Sponsored Series</div>
+          <div class="format-pill">Editorial Integrations</div>
+          <div class="format-pill">Contextual Placement</div>
+        </div>
+        <div class="case-studies">
+          <h3 style="margin-top:30px">Case Studies</h3>
+          <div class="case-item"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> Royal Commission for AlUla x Asharq Documentary</div>
+          <div class="case-item"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> Lexus x LIST</div>
+          <div class="case-item"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> Renault x Asharq Bloomberg</div>
+          <div class="case-item"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> L'Oreal x HIA — 360 Cultural Activation</div>
+          <div class="case-item"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg> Maybelline x Billboard Arabia</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 12: ADVERTISING FORMATS -->
+  <div class="slide zoom-in" data-slide="11">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/hero_digital.jpg')"></div>
+    <div style="text-align:center;margin-bottom:36px" class="fade-up">
+      <div style="font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:600">Advertising Formats</div>
+      <h2 style="font-size:38px;font-weight:900;line-height:1.2">When Brands Want Reach, Frequency & Impact</h2>
+      <p style="font-size:15px;color:var(--gray);margin-top:10px">Across premium environments, powered by data and creativity</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;width:100%;max-width:1200px" class="stagger">
+      <div style="padding:28px 16px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;cursor:pointer" class="ripple" onclick="openModal('displayads')">
+        <div style="width:56px;height:56px;margin:0 auto 16px;background:linear-gradient(135deg,var(--primary-dim),rgba(152,142,250,0.1));border-radius:18px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:8px">Display & Rich Media</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.6">Leaderboard, Billboard, Skyscraper, Native Ads</div>
+      </div>
+      <div style="padding:28px 16px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;cursor:pointer" class="ripple" onclick="openModal('videoads')">
+        <div style="width:56px;height:56px;margin:0 auto 16px;background:linear-gradient(135deg,var(--primary-dim),rgba(152,142,250,0.1));border-radius:18px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:8px">Video Ads</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.6">In-Read, Outstream, Shoppable Ads</div>
+      </div>
+      <div style="padding:28px 16px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;cursor:pointer" class="ripple" onclick="openModal('socialads')">
+        <div style="width:56px;height:56px;margin:0 auto 16px;background:linear-gradient(135deg,var(--primary-dim),rgba(152,142,250,0.1));border-radius:18px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg></div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:8px">Social Media Ads</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.6">Sponsored Posts, Carousel, Stories, Lead Gen</div>
+      </div>
+      <div style="padding:28px 16px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;cursor:pointer" class="ripple">
+        <div style="width:56px;height:56px;margin:0 auto 16px;background:linear-gradient(135deg,var(--primary-dim),rgba(152,142,250,0.1));border-radius:18px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:8px">Programmatic</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.6">Automated media buying for precision at scale</div>
+      </div>
+      <div style="padding:28px 16px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s;cursor:pointer" class="ripple" onclick="openModal('ooh')">
+        <div style="width:56px;height:56px;margin:0 auto 16px;background:linear-gradient(135deg,var(--primary-dim),rgba(152,142,250,0.1));border-radius:18px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:8px">OOH</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.6">Digital & Static Billboards via PHI Partnership</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 13: TALENTS & INFLUENCERS -->
+  <div class="slide slide-right" data-slide="12">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/hero_events.jpg')"></div>
+    <div style="display:flex;gap:50px;align-items:center;width:100%;max-width:1200px">
+      <div class="fade-left" style="flex:1">
+        <div style="font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-weight:600">Talents & Influencers</div>
+        <h2 style="font-size:38px;font-weight:900;line-height:1.2;margin-bottom:18px">When Brands Want Faces, Voices & Credibility</h2>
+        <p style="font-size:16px;color:var(--gray);line-height:1.8;margin-bottom:28px">We connect brands with a curated network of local, regional, and international talents and creators, selected for relevance, credibility, and cultural impact.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div style="padding:24px;border-radius:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);transition:all 0.4s" class="ripple">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="margin-bottom:10px"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <div style="font-size:15px;font-weight:700">Talent Network</div>
+            <div style="font-size:13px;color:var(--gray);margin-top:6px;line-height:1.6">Access to premium local, regional, and international talents</div>
+          </div>
+          <div style="padding:24px;border-radius:18px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);transition:all 0.4s" class="ripple">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="margin-bottom:10px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            <div style="font-size:15px;font-weight:700">Creator Partnership</div>
+            <div style="font-size:13px;color:var(--gray);margin-top:6px;line-height:1.6">Co-created content across platforms, in collaboration with LuxuryKSA</div>
+          </div>
+        </div>
+      </div>
+      <div class="fade-right" style="flex:0.8">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);margin-bottom:16px;text-transform:uppercase;letter-spacing:2px">Featured Talent</div>
+        <div style="display:grid;gap:10px">
+          <div style="padding:16px 20px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:14px;transition:all 0.3s"><div style="width:40px;height:40px;border-radius:12px;background:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex-shrink:0">NA</div><div><div style="font-size:14px;font-weight:700">Nour Al-Dhahri</div><div style="font-size:11px;color:var(--gray)">Content Creator</div></div></div>
+          <div style="padding:16px 20px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:14px;transition:all 0.3s"><div style="width:40px;height:40px;border-radius:12px;background:var(--accent2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0">HI</div><div><div style="font-size:14px;font-weight:700">Hindamme</div><div style="font-size:11px;color:var(--gray)">Influencer</div></div></div>
+          <div style="padding:16px 20px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:14px;transition:all 0.3s"><div style="width:40px;height:40px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#000;flex-shrink:0">MA</div><div><div style="font-size:14px;font-weight:700">Mona Alshebil</div><div style="font-size:11px;color:var(--gray)">Lifestyle</div></div></div>
+          <div style="padding:16px 20px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:14px;transition:all 0.3s"><div style="width:40px;height:40px;border-radius:12px;background:var(--primary-deep);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0">SN</div><div><div style="font-size:14px;font-weight:700">Samar Nasraldin</div><div style="font-size:11px;color:var(--gray)">Fashion</div></div></div>
+          <div style="padding:16px 20px;border-radius:14px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;gap:14px;transition:all 0.3s"><div style="width:40px;height:40px;border-radius:12px;background:#e91e63;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0">BD</div><div><div style="font-size:14px;font-weight:700">Blezah & Daneh</div><div style="font-size:11px;color:var(--gray)">Content Creators</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 14: L'ORÉAL CASE STUDY -->
+  <div class="slide slide-left" data-slide="13">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/case_loreal_1.jpg')"></div>
+    <div style="text-align:center;margin-bottom:36px" class="fade-up">
+      <div style="font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:600">Case Study</div>
+      <h2 style="font-size:38px;font-weight:900;line-height:1.2">L'Oréal x HIA — A 360° Cultural Brand Activation</h2>
+      <p style="font-size:15px;color:var(--gray);margin-top:12px;max-width:800px;margin-left:auto;margin-right:auto">A fully integrated brand experience combining storytelling, cultural platforms, live events, and local talent to position L'Oréal at the heart of Saudi Arabia's creative scene</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;width:100%;max-width:1100px" class="stagger">
+      <div style="padding:28px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s" class="ripple">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="margin-bottom:12px"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px">Media Coverage</div>
+        <div style="font-size:13px;color:var(--gray);line-height:1.6">Editorial coverage across trusted SRMG news platforms</div>
+      </div>
+      <div style="padding:28px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s" class="ripple">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="margin-bottom:12px"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px">Behind-the-Scenes</div>
+        <div style="font-size:13px;color:var(--gray);line-height:1.6">Exclusive behind-the-scenes content creation</div>
+      </div>
+      <div style="padding:28px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s" class="ripple">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="margin-bottom:12px"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px">Editorial Videos</div>
+        <div style="font-size:13px;color:var(--gray);line-height:1.6">Short-form editorial portraits & interviews</div>
+      </div>
+      <div style="padding:28px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s" class="ripple">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5" style="margin-bottom:12px"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px">Documentary Film</div>
+        <div style="font-size:13px;color:var(--gray);line-height:1.6">Full documentary production capturing brand story</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:20px;margin-top:28px;width:100%;max-width:1100px;justify-content:center" class="fade-up" style="transition-delay:0.5s">
+      <img src="assets/web/case_loreal_1.jpg" alt="" style="width:220px;height:140px;border-radius:16px;object-fit:cover;opacity:0.75;border:1px solid rgba(255,255,255,0.1);transition:all 0.4s">
+      <img src="assets/web/case_loreal_2.jpg" alt="" style="width:220px;height:140px;border-radius:16px;object-fit:cover;opacity:0.75;border:1px solid rgba(255,255,255,0.1);transition:all 0.4s">
+      <img src="assets/web/case_loreal_3.jpg" alt="" style="width:220px;height:140px;border-radius:16px;object-fit:cover;opacity:0.75;border:1px solid rgba(255,255,255,0.1);transition:all 0.4s">
+    </div>
+  </div>
+
+  <!-- SLIDE 15: OUR BRANDS SECTION -->
+  <div class="slide slide-section zoom-out" data-slide="14">
+    <div class="slide-bg blue-overlay" style="background-image:url('assets/web/hero_brands.jpg')"></div>
+    <div class="particles-container" id="s10Particles"></div>
+    <div class="section-num">03</div>
+    <div class="section-icon fade-up"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+    <h1 class="section-title fade-up">OUR<br>BRANDS</h1>
+    <p class="section-sub fade-up">SRMGMS.COM</p>
+  </div>
+
+  <!-- SLIDE 11: BRANDS NETWORK -->
+  <div class="slide slide-brands slide-right" data-slide="15">
+    <div class="bg-shapes"><div class="bg-shape s1"></div><div class="bg-shape s2"></div><div class="bg-shape s3"></div></div>
+    <h2 class="brands-title fade-up">Our Four Verticals</h2>
+    <p class="brands-sub fade-up">25+ media brands across news, sports, lifestyle, and youth</p>
+    <div class="brands-tabs stagger" id="brandTabs">
+      <div class="brand-tab active" data-tab="news"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg> News</div>
+      <div class="brand-tab" data-tab="sports"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg> Sports</div>
+      <div class="brand-tab" data-tab="lifestyle"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Lifestyle</div>
+      <div class="brand-tab" data-tab="youth"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Youth</div>
+    </div>
+    <div class="brands-content">
+      <div class="brand-panel active" data-panel="news">
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--primary);color:#fff">AA</div><div class="brand-card-name">Asharq Al-Awsat</div></div><div class="brand-card-desc">#1 source for general news. Go-to news source for decision-makers across MENA.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>~170M</strong>Page Views</div><div class="brand-mini-stat"><strong>33M</strong>Unique Visitors</div><div class="brand-mini-stat"><strong>~75%</strong>Engagement</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--accent);color:#000">AN</div><div class="brand-card-name">Arab News</div></div><div class="brand-card-desc">#1 English daily in KSA. Global voice from the Kingdom across English, French, Japanese.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>295M</strong>Pageviews</div><div class="brand-mini-stat"><strong>188M</strong>Sessions</div><div class="brand-mini-stat"><strong>10M</strong>Followers</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--accent2);color:#fff">TH</div><div class="brand-card-name">Thmanyah</div></div><div class="brand-card-desc">#1 digital media brand in the Arab world. Most watched podcast episode globally.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>40+</strong>Original IPs</div><div class="brand-mini-stat"><strong>12M+</strong>Followers</div><div class="brand-mini-stat"><strong>900M+</strong>Views</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--primary-deep);color:#fff">AS</div><div class="brand-card-name">Asharq News</div></div><div class="brand-card-desc">#1 destination for financial coverage & global interviews. 24/7 TV and digital.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>~9.5B</strong>Video Views</div><div class="brand-mini-stat"><strong>31M</strong>Followers</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:#e91e63;color:#fff">AR</div><div class="brand-card-name">Argaam</div></div><div class="brand-card-desc">#1 Arabic financial news & data platform. Reaching investors & decision-makers.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>200M</strong>Pageviews/yr</div><div class="brand-mini-stat"><strong>1.4M</strong>Monthly Users</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff">NN</div><div class="brand-card-name">News Network</div></div><div class="brand-card-desc">140M social followers. 15Bn views on social media in 2025. 21 titles across 7 languages.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>140M</strong>Followers</div><div class="brand-mini-stat"><strong>15Bn</strong>Views 2025</div></div></div>
+      </div>
+      <div class="brand-panel" data-panel="sports">
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--accent);color:#000">SP</div><div class="brand-card-name">SRMG Sports</div></div><div class="brand-card-desc">Turning millions of passionate fans into engaged communities with unmatched coverage scale.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>3.7Bn+</strong>Total Reach</div><div class="brand-mini-stat"><strong>195+</strong>Matches Covered</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--accent2);color:#fff">TS</div><div class="brand-card-name">Thmanyah Sports</div></div><div class="brand-card-desc">80M+ views. Growing library of match highlights, studio shows, player stories.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>80M+</strong>Views</div><div class="brand-mini-stat"><strong>85+</strong>Library Episodes</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--primary);color:#fff">SA</div><div class="brand-card-name">Sports App</div></div><div class="brand-card-desc">Mobile-first platform: live match updates, short-form video, and fan interaction.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>NEW</strong>Dec 2025</div></div></div>
+      </div>
+      <div class="brand-panel" data-panel="lifestyle">
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:#e91e63;color:#fff">HI</div><div class="brand-card-name">Hia</div></div><div class="brand-card-desc">#1 luxury women's lifestyle in GCC. Voice of contemporary Middle Eastern women.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>599M</strong>Video Views</div><div class="brand-mini-stat"><strong>16M</strong>Social</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--primary-deep);color:#fff">SY</div><div class="brand-card-name">Sayidaty</div></div><div class="brand-card-desc">#1 Arabic women's lifestyle platform. Fashion, beauty, family & culture.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>34M</strong>Followers</div><div class="brand-mini-stat"><strong>1.7M</strong>Monthly Users</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:#ffc947;color:#000">BB</div><div class="brand-card-name">Billboard Arabia</div></div><div class="brand-card-desc">#1 platform for Arab music & entertainment. Global chart authority.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>640M+</strong>Reach</div><div class="brand-mini-stat"><strong>489M</strong>Video Views</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--accent);color:#000">LI</div><div class="brand-card-name">LIST</div></div><div class="brand-card-desc">Premium luxury travel and lifestyle platform. Destination desire in KSA & GCC.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>26M</strong>Video Views</div><div class="brand-mini-stat"><strong>521K</strong>Followers</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:#e91e63;color:#fff">HH</div><div class="brand-card-name">Hia Hub</div></div><div class="brand-card-desc">Region's largest fashion and lifestyle conference. Multi-dimensional cultural platform.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>15K</strong>Attendees</div><div class="brand-mini-stat"><strong>100M+</strong>Social Views</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:#ffc947;color:#000">BA</div><div class="brand-card-name">Billboard Arabia Awards</div></div><div class="brand-card-desc">The fastest growing lifestyle platform. Premium live music experiences.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>2,750</strong>Attendees</div><div class="brand-mini-stat"><strong>640M+</strong>Reach</div></div></div>
+      </div>
+      <div class="brand-panel" data-panel="youth">
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--accent2);color:#fff">MA</div><div class="brand-card-name">Manga Arabia</div></div><div class="brand-card-desc">The Arab world's first and only manga powerhouse. Local narratives with Japanese manga elements.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>15M</strong>Printed Issues</div><div class="brand-mini-stat"><strong>13M+</strong>App Downloads</div><div class="brand-mini-stat"><strong>40+</strong>Licensed IPs</div></div></div>
+        <div class="brand-card"><div class="brand-card-header"><div class="brand-card-avatar" style="background:var(--primary);color:#fff">WC</div><div class="brand-card-name">2034 World Cup Partnership</div></div><div class="brand-card-desc">Partnered with Ministry of Sports to produce football-themed comics supporting KSA's 2034 World Cup.</div><div class="brand-card-stats"><div class="brand-mini-stat"><strong>15+</strong>Original IPs</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 12: PROOF POINTS -->
+  <div class="slide zoom-in" data-slide="16">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/hero_whoweare.jpg')"></div>
+    <h2 class="proof-title fade-up">Proof of Leadership</h2>
+    <div class="proof-grid stagger">
+      <div class="proof-card ripple"><div class="proof-card-top"><div class="proof-card-icon blue"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="proof-badge">Business News</div></div><div class="proof-stat">#1</div><div class="proof-desc">Source for business news in Arabic. 2.6M social followers in business vertical. Leading by far across all competitors.</div></div>
+      <div class="proof-card ripple"><div class="proof-card-top"><div class="proof-card-icon green"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div><div class="proof-badge">General News</div></div><div class="proof-stat">~75%</div><div class="proof-desc">Average engagement rate for Asharq Al-Awsat across all verticals. Regional industry average is ~55%.</div></div>
+      <div class="proof-card ripple"><div class="proof-card-top"><div class="proof-card-icon orange"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div><div class="proof-badge">Podcasts</div></div><div class="proof-stat">143M+</div><div class="proof-desc">Views on the most-watched podcast episode globally (Thmanyah). #1 Arabic podcast with 40+ original IPs.</div></div>
+      <div class="proof-card ripple"><div class="proof-card-top"><div class="proof-card-icon purple"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div class="proof-badge">Women's Lifestyle</div></div><div class="proof-stat">100M+</div><div class="proof-desc">Video views in 2025 for Sayidaty and Hia combined. #1 digital platform in women's lifestyle.</div></div>
+    </div>
+  </div>
+
+  <!-- SLIDE 13: EVENTS -->
+  <div class="slide slide-left" data-slide="17">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/hero_events.jpg')"></div>
+    <h2 class="events-title fade-up">Connect In Person: Experiences & Audiences</h2>
+    <div class="events-flex stagger">
+      <div class="event-card ripple">
+        <div class="event-card-icon pink"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="event-name">Hia Hub</div>
+        <div class="event-desc">The region's largest fashion and lifestyle conference, offering exclusive opportunities to connect with trendsetters, influencers, and celebrities.</div>
+        <div class="event-stats"><div class="ev-stat"><strong>117</strong><span>Speakers</span></div><div class="ev-stat"><strong>15K</strong><span>Attendees</span></div><div class="ev-stat"><strong>85+</strong><span>Brand Partners</span></div><div class="ev-stat"><strong>100M+</strong><span>Social Views</span></div></div>
+      </div>
+      <div class="event-card ripple">
+        <div class="event-card-icon gold"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+        <div class="event-name">Billboard Arabia Music Awards</div>
+        <div class="event-desc">The fastest growing lifestyle platform in the region. Align with music artists and the industry.</div>
+        <div class="event-stats"><div class="ev-stat"><strong>2,750</strong><span>Attendees</span></div><div class="ev-stat"><strong>640M+</strong><span>Reach</span></div><div class="ev-stat"><strong>20</strong><span>Performing Artists</span></div><div class="ev-stat"><strong>100M+</strong><span>Social Views</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 20: INTERNATIONAL PARTNERSHIPS -->
+  <div class="slide slide-right" data-slide="18">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/hero_brands.jpg')"></div>
+    <div style="text-align:center;margin-bottom:36px" class="fade-up">
+      <div style="font-size:14px;letter-spacing:5px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:600">Global Reach</div>
+      <h2 style="font-size:38px;font-weight:900;line-height:1.2">Our Influence Doesn't Stop at Regional Borders</h2>
+      <p style="font-size:15px;color:var(--gray);margin-top:10px;max-width:700px;margin-left:auto;margin-right:auto">We scale your message globally through trusted, world-class partnerships — blending local insight with international impact</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;width:100%;max-width:1100px" class="stagger">
+      <div style="padding:30px 18px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s" class="ripple">
+        <div style="width:56px;height:56px;margin:0 auto 14px;background:linear-gradient(135deg,#e91e63,#ff6090);border-radius:18px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">Music & Festivals</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.6">Billboard Arabia, BBAMA</div>
+      </div>
+      <div style="padding:30px 18px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s" class="ripple">
+        <div style="width:56px;height:56px;margin:0 auto 14px;background:linear-gradient(135deg,var(--accent2),#ffb347);border-radius:18px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/></svg></div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">Entertainment & Sports</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.6">Live events & global sports coverage</div>
+      </div>
+      <div style="padding:30px 18px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s" class="ripple">
+        <div style="width:56px;height:56px;margin:0 auto 14px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:18px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">Art & Luxury</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.6">Premium cultural experiences</div>
+      </div>
+      <div style="padding:30px 18px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s" class="ripple">
+        <div style="width:56px;height:56px;margin:0 auto 14px;background:linear-gradient(135deg,#e91e63,#ba68c8);border-radius:18px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">Fashion & Beauty</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.6">Hia Hub, lifestyle platforms</div>
+      </div>
+      <div style="padding:30px 18px;border-radius:22px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all 0.5s" class="ripple">
+        <div style="width:56px;height:56px;margin:0 auto 14px;background:linear-gradient(135deg,var(--primary-deep),var(--primary));border-radius:18px;display:flex;align-items:center;justify-content:center"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div style="font-size:15px;font-weight:700;margin-bottom:6px">Lifestyle & Tech</div>
+        <div style="font-size:12px;color:var(--gray);line-height:1.6">Digital-first innovation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 21: CLIENTS -->
+  <div class="slide zoom-out" data-slide="19">
+    <div class="slide-bg darken-heavy" style="background-image:url('assets/web/case_loreal_3.jpg')"></div>
+    <div class="clients-top">
+      <div class="client-big-stat fade-up"><div class="client-big-num">600+</div><div class="client-big-label">Brands Serviced in 2025</div></div>
+      <div class="client-big-stat fade-up" style="transition-delay:0.15s"><div class="client-big-num">3,900+</div><div class="client-big-label">Brand Campaigns in 2025</div></div>
+      <div class="clients-text fade-up" style="transition-delay:0.3s">
+        <h2>Client Portfolio Spanning Various Sectors</h2>
+        <p>From private to public sector: retail, luxury, finance, auto, real estate, tech, government and more.</p>
+      </div>
+    </div>
+    <div class="sectors-grid stagger">
+      <div class="sector-pill">Retail</div><div class="sector-pill">Luxury</div><div class="sector-pill">Finance & Banking</div><div class="sector-pill">Automotive</div><div class="sector-pill">Real Estate</div><div class="sector-pill">Technology</div><div class="sector-pill">Government</div><div class="sector-pill">F&B</div><div class="sector-pill">Telecom</div><div class="sector-pill">Entertainment</div><div class="sector-pill">Tourism</div><div class="sector-pill">Healthcare</div><div class="sector-pill">Education</div><div class="sector-pill">Fashion & Beauty</div>
+    </div>
+  </div>
+
+  <!-- SLIDE 15: CONTACT -->
+  <div class="slide slide-contact zoom-in" data-slide="20">
+    <div class="slide-bg gradient-overlay" style="background-image:url('assets/web/hero_storytelling.jpg')"></div>
+    <div class="particles-container" id="s15Particles"></div>
+    <div class="contact-icon fade-up"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+    <h1 class="contact-title fade-up">Let's Connect</h1>
+    <p class="contact-sub fade-up">We're here to help you unlock new opportunities and amplify your brand.</p>
+    <div class="contact-grid stagger">
+      <div class="contact-card"><h3><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Saudi Office</h3><p>PARTNER@SRMGMS.COM<br>+966 11 294 0500<br>Makkah Road, 1158 Riyadh</p></div>
+      <div class="contact-card"><h3><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Dubai Office</h3><p>PARTNER@SRMGMS.COM<br>+971 4 391 6500<br>Dubai Media City, Building 2, Office 506</p></div>
+    </div>
+    <div class="contact-links fade-up" style="transition-delay:0.5s">
+      <a href="https://www.srmgms.com" class="contact-link primary" target="_blank"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> WWW.SRMGMS.COM</a>
+      <a href="#" class="contact-link secondary"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg> @SRMGMS</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-content" id="modalContent">
+    <button class="modal-close" onclick="closeModal(event, true)">&times;</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav-bar">
+  <button class="nav-btn ripple" onclick="prevSlide()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <div class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">21</span></div>
+  <button class="nav-btn ripple" onclick="nextSlide()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
+</div>
+<div class="key-hint">Use arrow keys or click to navigate &bull; Click cards for details</div>
+
+<script>
+// PARTICLES
+function createParticles(id, count) {
+  const c = document.getElementById(id); if (!c) return;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div'); p.className = 'particle';
+    const size = Math.random() * 6 + 2;
+    const colors = ['rgba(103,87,236,0.3)','rgba(152,142,250,0.3)','rgba(42,31,133,0.25)','rgba(229,226,254,0.12)'];
+    p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*10+8}s;animation-delay:${Math.random()*8}s;`;
+    c.appendChild(p);
+  }
+}
+createParticles('coverParticles',35);
+createParticles('s3Particles',22);
+createParticles('s7Particles',22);
+createParticles('s10Particles',22);
+createParticles('s15Particles',28);
+
+// SLIDE ENGINE
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let isT = false;
+
+function updateSlide() {
+  if (isT) return; isT = true;
+  slides.forEach((s,i) => {
+    s.classList.remove('active','prev','next');
+    if (i===current) s.classList.add('active');
+    else if (i<current) s.classList.add('prev');
+    else s.classList.add('next');
+  });
+  document.getElementById('currentSlide').textContent = current+1;
+  document.getElementById('progress').style.width = ((current+1)/total*100)+'%';
+  setTimeout(() => { isT = false; }, 900);
+}
+
+function nextSlide() { if (current < total-1 && !isT) { current++; updateSlide(); } }
+function prevSlide() { if (current > 0 && !isT) { current--; updateSlide(); } }
+function goToSlide(n) { if (!isT) { current = n; updateSlide(); } }
+
+document.addEventListener('keydown', e => {
+  if (e.key==='ArrowRight'||e.key===' '){e.preventDefault();nextSlide();}
+  if (e.key==='ArrowLeft'){e.preventDefault();prevSlide();}
+  if (e.key==='Escape') closeModal(e,true);
+});
+
+let touchX=0;
+document.addEventListener('touchstart',e=>{touchX=e.touches[0].clientX;});
+document.addEventListener('touchend',e=>{const d=touchX-e.changedTouches[0].clientX;if(Math.abs(d)>50){d>0?nextSlide():prevSlide();}});
+
+let wt;
+document.addEventListener('wheel',e=>{clearTimeout(wt);wt=setTimeout(()=>{e.deltaY>0?nextSlide():prevSlide();},100);});
+
+// BRAND TABS
+document.querySelectorAll('.brand-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    document.querySelectorAll('.brand-tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.brand-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelector(`[data-panel="${tab.dataset.tab}"]`).classList.add('active');
+  });
+});
+
+// MODALS
+const modalData = {
+  content:{title:'Content & Storytelling',body:'<p>Top-tier storytelling and branded content, powered by our leading editors and contributors. A curated network of high-end, widely recognized contributors renowned across multiple fields.</p><p>Our in-house production arm, SRMG Studios, brings ideas to life with quality and creativity — adapting and optimizing content for every format.</p>'},
+  digital:{title:'Digital & Social Media',body:'<p>Designed for a world where mobile is the primary screen and attention is always on. We are a digital-first network.</p><div style="display:flex;gap:20px;margin-top:24px"><div style="text-align:center;padding:28px;background:rgba(255,255,255,0.04);border-radius:18px;flex:1;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:40px;font-weight:900;color:var(--accent)">4hrs+</div><div style="font-size:13px;color:#aaa;margin-top:8px">Daily phone time in MENA</div></div><div style="text-align:center;padding:28px;background:rgba(255,255,255,0.04);border-radius:18px;flex:1;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:40px;font-weight:900;color:var(--accent)">#1</div><div style="font-size:13px;color:#aaa;margin-top:8px">Business news source</div></div></div>'},
+  vod:{title:'AVOD / SVOD',body:'<p>Leading VOD platforms covering sports, business, politics, documentary and beyond.</p><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-top:24px"><div style="text-align:center;padding:22px;background:rgba(255,255,255,0.04);border-radius:16px;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:32px;font-weight:800;color:var(--accent)">6</div><div style="font-size:12px;color:#aaa;margin-top:6px">AVOD Channels</div></div><div style="text-align:center;padding:22px;background:rgba(255,255,255,0.04);border-radius:16px;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:32px;font-weight:800;color:var(--accent)">24/7</div><div style="font-size:12px;color:#aaa;margin-top:6px">Coverage</div></div><div style="text-align:center;padding:22px;background:rgba(255,255,255,0.04);border-radius:16px;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:32px;font-weight:800;color:var(--accent)">#1</div><div style="font-size:12px;color:#aaa;margin-top:6px">Arabic Documentary</div></div></div>'},
+  audio:{title:'Audio & Podcasts',body:'<p>Our award-winning audio platforms offer immersive storytelling across podcasts and radio.</p><div style="display:flex;gap:20px;margin-top:24px"><div style="text-align:center;padding:28px;background:rgba(255,255,255,0.04);border-radius:18px;flex:1;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:36px;font-weight:900;color:var(--accent)">#1</div><div style="font-size:13px;color:#aaa;margin-top:8px">Arabic Podcast</div></div><div style="text-align:center;padding:28px;background:rgba(255,255,255,0.04);border-radius:18px;flex:1;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:36px;font-weight:900;color:var(--accent)">143M+</div><div style="font-size:13px;color:#aaa;margin-top:8px">Views on #1 episode globally</div></div></div>'},
+  events:{title:'Experiences',body:'<p>Partner with Hia Hub and Billboard Arabia Music Awards for exclusive on-ground experiences.</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px"><div style="text-align:center;padding:20px;background:rgba(255,255,255,0.04);border-radius:16px;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:32px;font-weight:800;color:var(--accent)">15K</div><div style="font-size:12px;color:#aaa;margin-top:6px">Hia Hub Attendees</div></div><div style="text-align:center;padding:20px;background:rgba(255,255,255,0.04);border-radius:16px;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:32px;font-weight:800;color:var(--accent)">2,750</div><div style="font-size:12px;color:#aaa;margin-top:6px">BBAMA Attendees</div></div><div style="text-align:center;padding:20px;background:rgba(255,255,255,0.04);border-radius:16px;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:32px;font-weight:800;color:var(--accent)">640M+</div><div style="font-size:12px;color:#aaa;margin-top:6px">Total Reach</div></div><div style="text-align:center;padding:20px;background:rgba(255,255,255,0.04);border-radius:16px;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:32px;font-weight:800;color:var(--accent)">100M+</div><div style="font-size:12px;color:#aaa;margin-top:6px">Social Views</div></div></div>'},
+  branded:{title:'Branded Content Details',body:'<p>When brands want to build trust, meaning, and cultural relevance.</p><ul style="color:#aaa;line-height:2.4;padding-left:20px;font-size:15px"><li><strong style="color:#fff">Native Storytelling</strong> — Long-form articles, documentary video, multimedia native stories</li><li><strong style="color:#fff">Sponsored Series</strong> — Episodic content, seasonal themes, cross-platform rollout</li><li><strong style="color:#fff">Editorial Integrations</strong> — In-article brand mentions, branded segments, sponsor presence</li></ul>'},
+  adformats:{title:'Advertising Formats',body:'<p>When brands want reach, frequency, and impact across premium environments.</p><ul style="color:#aaa;line-height:2.4;padding-left:20px;font-size:15px"><li><strong style="color:#fff">Display & Rich Media</strong> — Leaderboard, billboard, skyscraper, native ads</li><li><strong style="color:#fff">Video Ads</strong> — In-read, outstream, shoppable ads</li><li><strong style="color:#fff">Social Media Ads</strong> — Sponsored posts, carousel, stories, lead gen</li><li><strong style="color:#fff">Programmatic</strong> — Automated media buying</li><li><strong style="color:#fff">OOH</strong> — Digital & static billboards via PHI partnership</li></ul>'},
+  eventsmodal:{title:'Events & Experiences',body:'<p>When brands want to own moments, not impressions.</p><ul style="color:#aaa;line-height:2.4;padding-left:20px;font-size:15px"><li><strong style="color:#fff">Event Sponsorships</strong> — Brand integration within SRMG-curated events</li><li><strong style="color:#fff">Media Coverage</strong> — Editorial exposure across news platforms</li><li><strong style="color:#fff">Event Activations</strong> — Branded hubs, interactive installations, live talks</li></ul>'},
+  talent:{title:'Talents & Influencers',body:'<p>When brands want faces, voices, and credibility.</p><ul style="color:#aaa;line-height:2.4;padding-left:20px;font-size:15px"><li><strong style="color:#fff">Talent Network</strong> — Access to premium local, regional, and international talents</li><li><strong style="color:#fff">Creator Partnerships</strong> — Co-created content across platforms, in collaboration with LuxuryKSA</li></ul>'},
+  displayads:{title:'Display & Rich Media Ads',body:'<p>High-impact visual placements across SRMG platforms, designed to capture attention and drive engagement at scale.</p><ul style="color:#aaa;line-height:2.4;padding-left:20px;font-size:15px"><li><strong style="color:#fff">Leaderboard</strong> — Premium top-of-page banner placement</li><li><strong style="color:#fff">Billboard</strong> — Large-format high-visibility placement</li><li><strong style="color:#fff">Skyscraper</strong> — Side-column persistent ads</li><li><strong style="color:#fff">Native Ads</strong> — Integrated in-feed placements</li><li><strong style="color:#fff">Medium Rectangle</strong> — Versatile in-content placement</li></ul>'},
+  videoads:{title:'Video Ads',body:'<p>High-impact video formats designed to capture attention and drive engagement.</p><ul style="color:#aaa;line-height:2.4;padding-left:20px;font-size:15px"><li><strong style="color:#fff">In-Read Video</strong> — Auto-playing video within editorial content</li><li><strong style="color:#fff">Outstream Video</strong> — Standalone video outside player content</li><li><strong style="color:#fff">Mobile Video-Interstitial</strong> — Full-screen mobile takeover</li><li><strong style="color:#fff">Shoppable Ads</strong> — Video with integrated purchase CTAs</li></ul>'},
+  socialads:{title:'Social Media Ads',body:'<p>Targeted social formats designed to drive engagement, visibility, and performance.</p><ul style="color:#aaa;line-height:2.4;padding-left:20px;font-size:15px"><li><strong style="color:#fff">Sponsored Posts</strong> — Branded content in social feeds</li><li><strong style="color:#fff">Carousel Ads</strong> — Multi-image storytelling format</li><li><strong style="color:#fff">Stories Ads</strong> — Immersive vertical format</li><li><strong style="color:#fff">Lead Generation Ads</strong> — Direct response with in-platform forms</li><li><strong style="color:#fff">Collection Ads</strong> — Product showcase format</li></ul>'},
+  ooh:{title:'Out-of-Home (OOH)',body:'<p>High-impact visibility in public spaces through strategic partnership with PHI.</p><ul style="color:#aaa;line-height:2.4;padding-left:20px;font-size:15px"><li><strong style="color:#fff">Digital OOH</strong> — Screen networks in high-traffic areas</li><li><strong style="color:#fff">Static Billboards</strong> — Large-format traditional outdoor</li><li><strong style="color:#fff">Large-Format Displays</strong> — Premium urban placements</li></ul><div style="margin-top:20px;padding:20px;background:rgba(255,255,255,0.04);border-radius:16px;border:1px solid rgba(255,255,255,0.06)"><div style="font-size:14px;font-weight:700;color:var(--accent);margin-bottom:8px">THE WALKING CHALLENGE</div><div style="font-size:13px;color:#aaa">6M+ students (ages 12-18) across 1,266 schools in 16 regions including Riyadh, Jeddah, Makkah, and Eastern Province</div></div>'}
+};
+
+function openModal(key) {
+  const d = modalData[key]; if(!d) return;
+  document.getElementById('modalBody').innerHTML = `<h2 style="background:linear-gradient(135deg,#fff,rgba(255,255,255,0.7));-webkit-background-clip:text;-webkit-text-fill-color:transparent">${d.title}</h2>${d.body}`;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(e, force) {
+  if (force || e.target === document.getElementById('modalOverlay'))
+    document.getElementById('modalOverlay').classList.remove('open');
+}
+
+// PARALLAX MOUSE
+document.addEventListener('mousemove', e => {
+  const x = (e.clientX/window.innerWidth - 0.5) * 20;
+  const y = (e.clientY/window.innerHeight - 0.5) * 20;
+  const s = document.querySelector('.slide.active');
+  if (s) {
+    const bg = s.querySelector('.slide-bg');
+    if (bg) bg.style.transform = `translate(${x*0.4}px, ${y*0.4}px) scale(1.05)`;
+    s.querySelectorAll('.cover-glow').forEach(g => { g.style.transform = `translate(${x*1.2}px, ${y*1.2}px)`; });
+  }
+});
+
+// INIT
+document.getElementById('totalSlides').textContent = total;
+updateSlide();
+</script>
+</body>
+</html>
