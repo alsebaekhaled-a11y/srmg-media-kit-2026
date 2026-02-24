@@ -464,10 +464,25 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', 
 </head>
 <body>
 
-<div class="progress-bar" id="progress"></div>
-<img src="assets/web/srmg_logo.svg" class="srmg-logo-fixed" alt="SRMG" id="globalLogo" onerror="this.src='assets/web/srmg_logo.png'">
+<!-- PASSWORD GATE -->
+<div id="passwordGate" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:9999;background:#0a0a0a;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:'Inter',sans-serif;">
+  <div style="position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,rgba(25,23,35,0.95) 0%,rgba(103,87,236,0.3) 100%);"></div>
+  <div style="position:relative;z-index:2;text-align:center;max-width:420px;width:90%;">
+    <img src="assets/web/srmg_logo.svg" alt="SRMG" style="width:72px;margin-bottom:32px;filter:brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.3));" onerror="this.src='assets/web/srmg_logo.png'">
+    <h1 style="font-size:32px;font-weight:900;margin-bottom:8px;color:#fff;">2026 Media Kit</h1>
+    <p style="font-size:15px;color:rgba(255,255,255,0.45);margin-bottom:36px;letter-spacing:4px;text-transform:uppercase;">Confidential</p>
+    <div style="position:relative;">
+      <input type="password" id="pwInput" placeholder="Enter password" autocomplete="off" style="width:100%;padding:18px 24px;border-radius:16px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.06);color:#fff;font-size:17px;font-family:'Inter',sans-serif;outline:none;backdrop-filter:blur(10px);transition:all 0.3s;" onfocus="this.style.borderColor='#6757EC';this.style.boxShadow='0 0 24px rgba(103,87,236,0.3)'" onblur="this.style.borderColor='rgba(255,255,255,0.12)';this.style.boxShadow='none'">
+    </div>
+    <button id="pwBtn" onclick="checkPassword()" style="width:100%;padding:18px;border-radius:16px;border:none;background:linear-gradient(135deg,#6757EC,#988EFA);color:#fff;font-size:17px;font-weight:700;cursor:pointer;margin-top:14px;transition:all 0.4s;box-shadow:0 6px 24px rgba(103,87,236,0.4);font-family:'Inter',sans-serif;">Enter</button>
+    <p id="pwError" style="color:#ff4d6a;font-size:13px;margin-top:14px;opacity:0;transition:opacity 0.3s;">Incorrect password. Please try again.</p>
+  </div>
+</div>
 
-<div class="deck" id="deck">
+<div class="progress-bar" id="progress" style="display:none"></div>
+<img src="assets/web/srmg_logo.svg" class="srmg-logo-fixed" alt="SRMG" id="globalLogo" onerror="this.src='assets/web/srmg_logo.png'" style="display:none">
+
+<div class="deck" id="deck" style="display:none">
 
   <!-- SLIDE 1: COVER -->
   <div class="slide slide-cover zoom-in" data-slide="0">
@@ -1031,12 +1046,52 @@ html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Inter', 
 </div>
 
 <!-- NAVIGATION -->
-<div class="nav-bar">
+<div class="nav-bar" id="navBar" style="display:none">
   <button class="nav-btn ripple" onclick="prevSlide()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
   <div class="slide-counter"><span id="currentSlide">1</span> / <span id="totalSlides">21</span></div>
   <button class="nav-btn ripple" onclick="nextSlide()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>
 </div>
-<div class="key-hint">Use arrow keys or click to navigate &bull; Click cards for details</div>
+<div class="key-hint" id="keyHint" style="display:none">Use arrow keys or click to navigate &bull; Click cards for details</div>
+
+<script>
+// PASSWORD PROTECTION
+const PW_HASH = '896ddd64a6b0f9107127a285cf7c1a20bfe908153638fe638134686ef325b457';
+async function sha256(msg) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(msg));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+async function checkPassword() {
+  const input = document.getElementById('pwInput').value;
+  const hash = await sha256(input);
+  if (hash === PW_HASH) {
+    document.getElementById('passwordGate').style.opacity = '0';
+    document.getElementById('passwordGate').style.transition = 'opacity 0.6s ease';
+    setTimeout(() => {
+      document.getElementById('passwordGate').style.display = 'none';
+      document.getElementById('deck').style.display = '';
+      document.getElementById('progress').style.display = '';
+      document.getElementById('globalLogo').style.display = '';
+      document.getElementById('navBar').style.display = '';
+      document.getElementById('keyHint').style.display = '';
+      updateSlide();
+    }, 600);
+  } else {
+    document.getElementById('pwError').style.opacity = '1';
+    document.getElementById('pwInput').style.borderColor = '#ff4d6a';
+    document.getElementById('pwInput').style.boxShadow = '0 0 24px rgba(255,77,106,0.2)';
+    setTimeout(() => {
+      document.getElementById('pwError').style.opacity = '0';
+      document.getElementById('pwInput').style.borderColor = 'rgba(255,255,255,0.12)';
+      document.getElementById('pwInput').style.boxShadow = 'none';
+    }, 2500);
+  }
+}
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('pwInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') checkPassword();
+  });
+});
+</script>
 
 <script>
 // PARTICLES
